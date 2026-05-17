@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEF Audio Practice</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; padding: 20px; background-color: #f4f4f9; color: #333; max-width: 600px; margin: 0 auto; }
+        h1 { font-size: 24px; text-align: center; color: #2c3e50; margin-bottom: 5px;}
+        .subtitle { text-align: center; color: #666; margin-bottom: 25px; font-size: 14px; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        label { font-weight: bold; display: block; margin-top: 15px; margin-bottom: 5px; }
+        select, button { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; margin-bottom: 10px; box-sizing: border-box; }
+        button { background-color: #007aff; color: white; border: none; font-weight: bold; padding: 15px; }
+        #status-text { font-size: 18px; font-style: italic; color: #555; margin: 20px 0; min-height: 60px; padding: 10px; background: #f0f0f5; border-radius: 6px; text-align: center; }
+        .big-btn { background-color: #34c759; font-size: 22px; margin-top: 10px; height: 60px; }
+        .big-btn:active { background-color: #248a3d; }
+        .info { font-size: 14px; color: #666; text-align: center; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <h1>TEF Speaking Section B</h1>
+    <div class="subtitle">Live Production Audio Companion</div>
+    
+    <div class="card">
+        <label for="topicSelect">1. Choose Your Topic</label>
+        <select id="topicSelect" onchange="resetSession()">
+            <option value="activite_1">Activité 1: Insect-based Dishes Restaurant</option>
+            <option value="activite_2">Activité 2: Volunteer Guide at Tourism Office</option>
+            <option value="activite_3">Activité 3: Gastronomic Tour in Montreal</option>
+        </select>
+
+        <label for="modeSelect">2. Choose Mode</label>
+        <select id="modeSelect" onchange="resetSession()">
+            <option value="1">Mode 1: English Only (Line-by-Line)</option>
+            <option value="2">Mode 2: Bilingual (French -> English)</option>
+        </select>
+    </div>
+
+    <div class="card">
+        <div id="status-text">Tap the green button to start your session.</div>
+        <button id="nextBtn" class="big-btn">👉 SPEAK NEXT LINE 👈</button>
+        <button id="resetBtn" style="background-color: #ff3b30; margin-top: 15px; padding: 10px; font-size: 14px;">Restart Topic</button>
+    </div>
+
+    <div class="info">
+        💡 <strong>Passive Use:</strong> Once you tap the green button the first time, you can lock your screen. Use your headphone buttons to advance lines completely hands-free!
+    </div>
+
+    <audio id="silentAudio" loop>
+        <source src="data:audio/mp3;base64,//NExAAAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq/" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const tefData = {
+            "activite_1": {
+                "topic": "Persuading a friend to try a restaurant serving insect-based dishes.",
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de voir une pub sur Instagram pour un resto qui propose des plats à base d'insectes. Ça a l'air vraiment original, tu ne trouves pas ?" },
+                    { "speaker": "Examinateur", "text": "Des insectes ? Euh... non merci, ça ne me tente pas trop. Je ne suis pas très aventureux en matière de nourriture." },
+                    { "speaker": "Vous", "text": "Allez, sois un peu curieux ! C'est l'occasion de sortir de ta zone de confort et de découvrir de nouvelles saveurs. Qui sait, tu pourrais être surpris ! Et en plus, c'est une façon de faire un geste pour la planète." },
+                    { "speaker": "Examinateur", "text": "Je ne suis pas sûr que ce soit très bon... Et puis, manger des insectes, beurk ! L'idée même me donne des frissons." },
+                    { "speaker": "Vous", "text": "Apparemment, c'est délicieux et très nutritif ! Ils disent que c'est plein de protéines et qu'il y a une grande variété d'insectes au menu : grillons, vers de farine, sauterelles... Il paraît que ça a un goût de noisette ou de crevette, selon les espèces. Et puis, on n'est pas obligé de prendre le plat le plus exotique, il y a sûrement des options plus accessibles, comme des burgers ou des tacos avec des insectes incorporés de manière plus subtile." },
+                    { "speaker": "Examinateur", "text": "Je suis un peu difficile, j'ai peur de ne rien trouver à mon goût. Je suis plutôt du genre viande et pommes de terre." },
+                    { "speaker": "Vous", "text": "Ils ont aussi des desserts, ça peut être un bon compromis. On peut commencer par ça, histoire de se mettre dans l'ambiance. Ils proposent des brownies aux grillons, des glaces aux vers de farine... ça peut être amusant de goûter ! Et si on se sent d'attaque, on pourra toujours partager une petite assiette d'insectes grillés pour l'apéro." },
+                    { "speaker": "Examinateur", "text": "Je ne sais pas si c'est très hygiénique de manger des insectes... On ne sait pas d'où ils viennent, comment ils sont élevés..." },
+                    { "speaker": "Vous", "text": "Je suis sûre que c'est préparé dans les règles de l'art, avec des insectes provenant d'élevages contrôlés et respectueux de l'environnement. Et puis, c'est de plus en plus courant, même certains grands chefs étoilés s'y mettent ! C'est un signe que ça vaut le coup d'essayer, non ?" },
+                    { "speaker": "Examinateur", "text": "Je préfère les restaurants traditionnels, je ne suis pas sûr d'être à l'aise dans ce genre d'endroit. J'ai peur que ce soit trop bizarre ou trop branché pour moi." },
+                    { "speaker": "Vous", "text": "On peut toujours y aller pour boire un verre, juste pour voir l'ambiance. Ils ont sûrement une belle carte de cocktails ou de bières artisanales. Et si l'atmosphère nous plaît, on reste pour dîner. Au pire, on aura passé un bon moment à discuter autour d'un verre." },
+                    { "speaker": "Examinateur", "text": "I n'ai pas très envie de dépenser de l'argent pour manger des insectes. Je préfère mettre mon argent dans un bon steak-frites." },
+                    { "speaker": "Vous", "text": "On peut partager une assiette pour goûter, ça reviendra moins cher. Et puis, c'est une expérience unique, ça vaut bien un petit investissement. C'est comme aller au cinéma ou à un concert, c'est pour le plaisir de découvrir quelque chose de nouveau." },
+                    { "speaker": "Examinateur", "text": "J'ai peur d'avoir des problèmes de digestion après. Mon estomac est assez sensible." },
+                    { "speaker": "Vous", "text": "Les insectes sont apparemment très digestes, beaucoup plus que la viande rouge par exemple. Et puis, on n'est pas obligé d'en manger des tonnes, juste de quoi goûter et se faire une idée. Si vraiment tu as des doutes, on peut demander conseil au serveur pour choisir des plats adaptés." },
+                    { "speaker": "Examinateur", "text": "Je ne suis pas sûr que ce soit éthique de manger des insectes. Ils sont peut-être sensibles, on ne sait pas vraiment..." },
+                    { "speaker": "Vous", "text": "C'est une alternative beaucoup plus durable que la viande, ça permet de réduire notre impact sur l'environnement. Les élevages d'insectes consomment moins d'eau, moins d'énergie et produisent moins de gaz à effet de serre que les élevages traditionnels. Et puis, les insectes sont une source de nourriture très répandue dans le monde, c'est juste qu'en Occident on n'y est pas encore habitués." },
+                    { "speaker": "Examinateur", "text": "Bon, d'accord, tu m'as convaincu. Mais si je n'aime pas, on part, hein ?" },
+                    { "speaker": "Vous", "text": "Promis ! Mais je suis sûre que tu vas adorer. C'est une aventure culinaire à ne pas manquer ! On va se régaler, je te le promets !" }
+                ]
+            },
+            "activite_2": {
+                "topic": "Become a volunteer guide at the tourism office to help international students.",
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super ! Je viens de tomber sur une annonce qui pourrait t'intéresser. Il s'agit de devenir guide bénévole au Québec." },
+                    { "speaker": "Examinateur", "text": "Ah oui ? C'est quoi exactement ?" },
+                    { "speaker": "Vous", "text": "C'est une opportunité de devenir guide bénévole à l'office de tourisme pour aider les étudiants étrangers à découvrir la région." },
+                    { "speaker": "Examinateur", "text": "C'est sympa, mais je ne suis pas sûr d'avoir le temps." },
+                    { "speaker": "Vous", "text": "Ils sont flexibles sur les horaires, tu peux choisir les créneaux qui te conviennent. Et puis, ça ne te prendra pas énormément de temps chaque semaine." },
+                    { "speaker": "Examinateur", "text": "Je ne connais pas assez bien la région pour être guide." },
+                    { "speaker": "Vous", "text": "Il y a une formation prévue pour les bénévoles, tu apprendras tout ce qu'il faut savoir. Et puis, c'est aussi l'occasion d'approfondir tes connaissances sur ta propre région." },
+                    { "speaker": "Examinateur", "text": "Je ne suis pas très à l'aise pour parler en public." },
+                    { "speaker": "Vous", "text": "C'est une excellente façon de vaincre ta timidité et de gagner en confiance en toi. Et puis, tu seras là pour aider les gens, pas pour faire un one-man-show." },
+                    { "speaker": "Examinateur", "text": "Je ne parle pas couramment anglais." },
+                    { "speaker": "Vous", "text": "Ce n'est pas un problème, il y a sûrement d'autres langues demandées. Et puis, c'est l'occasion de pratiquer ton anglais et de progresser." },
+                    { "speaker": "Examinateur", "text": "Je ne sais pas si je serais capable de répondre à toutes les questions des touristes." },
+                    { "speaker": "Vous", "text": "Tu ne seras pas seul, il y aura d'autres bénévoles et des professionnels pour t'épauler. Et puis, personne ne s'attend à ce que tu sois une encyclopédie vivante." },
+                    { "speaker": "Examinateur", "text": "Je ne suis pas sûr d'être assez patient pour gérer des groupes de touristes." },
+                    { "speaker": "Vous", "text": "C'est un bon exercice pour développer ta patience et ta tolérance. Et puis, la plupart des gens sont reconnaissants de l'aide qu'on leur apporte." },
+                    { "speaker": "Examinateur", "text": "Je ne sais pas si j'ai les compétences nécessaires pour être un bon guide." },
+                    { "speaker": "Vous", "text": "Si tu es passionné par ta région et que tu as envie de la partager, c'est déjà un bon début. Et puis, les qualités humaines sont souvent plus importantes que les compétences techniques." },
+                    { "speaker": "Examinateur", "text": "Je ne suis pas sûr que ce soit une expérience valorisante pour mon CV." },
+                    { "speaker": "Vous", "text": "C'est une expérience enrichissante qui montre ton engagement, ton sens du service et ton ouverture aux autres. Ça peut être un vrai plus pour ton CV." },
+                    { "speaker": "Examinateur", "text": "Je préfère voyager plutôt que de faire visiter ma propre région." },
+                    { "speaker": "Vous", "text": "C'est l'occasion de voir ta région avec un regard neuf, à travers les yeux des visiteurs. Et puis, qui sait, tu pourrais même découvrir des endroits que tu ne connaissais pas." },
+                    { "speaker": "Examinateur", "text": "Bon, d'accord, tu m'as convaincu. Je vais me renseigner." },
+                    { "speaker": "Vous", "text": "Super ! Je suis sûre que tu vas adorer. C'est une expérience unique qui te permettra de rencontrer des gens du monde entier, de partager ta passion et de t'épanouir personnellement." }
+                ]
+            },
+            "activite_3": {
+                "topic": "Join a gastronomic tour in Montreal based on an advertisement.",
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut ! Ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va bien, merci. J'ai quelque chose de super excitant à te partager !" },
+                    { "speaker": "Examinateur", "text": "Quoi de neuf ?" },
+                    { "speaker": "Vous", "text": "J'ai découvert cette offre incroyable pour une expérience gastronomique à Montréal ! Tu sais à quel point j'adore la cuisine, alors quand j'ai vu ça, j'ai pensé à toi immédiatement." },
+                    { "speaker": "Examinateur", "text": "Hmm, une expérience gastronomique à Montréal ? Ça sonne plutôt intéressant, mais je ne sais pas..." },
+                    { "speaker": "Vous", "text": "Attends, laisse-moi te donner plus de détails. Donc, c'est une visite guidée de 5 restaurants locaux où l'on peut déguster des plats traditionnels incroyables. Et devine quoi ? On a même la chance de rencontrer des chefs renommés ! Tout ça pour un prix à partir de 150 $. Ça ne te donne pas l'eau à la bouche ?" },
+                    { "speaker": "Examinateur", "text": "Ça a l'air sympa en effet. Mais 150 $, c'est un peu cher pour moi en ce moment." },
+                    { "speaker": "Vous", "text": "Je comprends, mais pense à tout ce qui est inclus ! C'est 5 restaurants différents, des plats délicieux, et la chance de rencontrer des chefs. C'est une expérience complète, pas juste un repas. Et puis, on peut toujours partager certains plats pour réduire le coût." },
+                    { "speaker": "Examinateur", "text": "C'est vrai. Mais je ne suis pas sûr d'avoir le temps ce week-end. J'ai déjà pas mal de choses prévues." },
+                    { "speaker": "Vous", "text": "Je comprends, mais cette expérience ne prend qu'une journée. On peut choisir le jour qui te convient le mieux. Et puis, ça pourrait être une pause agréable dans ton emploi du temps chargé. Imagine, une journée entière à se régaler et à découvrir de nouvelles saveurs, loin du stress quotidien." },
+                    { "speaker": "Examinateur", "text": "Hmm, peut-être. Mais je ne connais pas très bien Montréal. Je ne suis pas sûr de vouloir me lancer dans une visite guidée." },
+                    { "speaker": "Vous", "text": "C'est justement l'occasion de découvrir la ville d'une manière différente ! Le guide nous emmènera dans des endroits authentiques que l'on ne trouverait pas forcément seuls. Et puis, on sera en groupe, donc pas de stress. En plus, j'ai entendu dire que le guide est vraiment passionné et connaît plein d'anecdotes intéressantes sur la ville et sa gastronomie." },
+                    { "speaker": "Examinateur", "text": "C'est vrai. Mais je suis un peu difficile en matière de nourriture. Je ne suis pas sûr d'aimer tous les plats." },
+                    { "speaker": "Vous", "text": "Pas de problème ! On peut consulter le menu à l'avance et choisir les restaurants qui te plaisent le plus. Et puis, c'est l'occasion de goûter de nouvelles choses et de sortir de ta zone de confort culinaire. Qui sait, tu pourrais découvrir de nouveaux plats préférés !" },
+                    { "speaker": "Examinateur", "text": "Bon, tu m'as presque convaincu. Mais je doit quand même vérifier mon emploi du temps et voir si je peux me le permettre financièrement." },
+                    { "speaker": "Vous", "text": "Pas de souci ! Je te laisse réfléchir, mais n'hésite pas trop longtemps, les places sont limitées. Et puis, je suis sûr que tu ne le regretteras pas. Cette expérience pourrait créer des souvenirs incroyables et nous rapprocher encore plus." },
+                    { "speaker": "Examinateur", "text": "D'accord, je vais y réfléchir sérieusement. Merci de m'avoir proposé cette idée !" },
+                    { "speaker": "Vous", "text": "Avec plaisir ! Je te tiens au courant dès que tu as pris ta décision." }
+                ]
+            }
+        };
+
+        let currentIndex = 0;
+        let isEnglishPhase = false;
+        let audioActivated = false;
+
+        function resetSession() {
+            window.speechSynthesis.cancel();
+            currentIndex = 0;
+            isEnglishPhase = false;
+            document.getElementById('status-text').textContent = "Settings changed. Tap the green button to start.";
+        }
+
+        document.getElementById('resetBtn').addEventListener('click', resetSession);
+        document.getElementById('nextBtn').addEventListener('click', playNext);
+
+        function activateAudio() {
+            if (!audioActivated) {
+                try { document.getElementById('silentAudio').play(); } catch(e){}
+                try { window.speechSynthesis.speak(new SpeechSynthesisUtterance("")); } catch(e){}
+                if ('mediaSession' in navigator) {
+                    navigator.mediaSession.metadata = new MediaMetadata({ title: 'TEF Practice', artist: 'Active Session' });
+                    navigator.mediaSession.setActionHandler('nexttrack', playNext);
+                    navigator.mediaSession.setActionHandler('play', playNext);
+                }
+                audioActivated = true;
+            }
+        }
+
+        async function playNext() {
+            activateAudio(); 
+            window.speechSynthesis.cancel(); 
+            
+            const selectedKey = document.getElementById('topicSelect').value;
+            const currentMode = document.getElementById('modeSelect').value;
+            const statusText = document.getElementById('status-text');
+            
+            const transcript = tefData[selectedKey].conversation_transcript;
+
+            if (currentIndex >= transcript.length) {
+                statusText.textContent = "🎉 Topic complete! Switch topics above.";
+                return speakText("Topic complete. Well done.", "en-US");
+            }
+
+            const line = transcript[currentIndex];
+            const roleFr = line.speaker === "Examinateur" ? "L'examinateur" : "Le candidat";
+            const roleEn = line.speaker === "Examinateur" ? "Examiner" : "Candidate";
+
+            statusText.textContent = "Loading translation...";
+
+            if (currentMode === "1") {
+                const englishText = await translate(line.text);
+                statusText.innerHTML = `<strong>${roleEn}:</strong> ${englishText}`;
+                speakText(`${roleEn} says: ${englishText}`, "en-US");
+                currentIndex++;
+            } 
+            else if (currentMode === "2") {
+                if (!isEnglishPhase) {
+                    statusText.innerHTML = `<strong>${roleFr} (FR):</strong> ${line.text}`;
+                    speakText(line.text, "fr-CA");
+                    isEnglishPhase = true;
+                } else {
+                    const englishText = await translate(line.text);
+                    statusText.innerHTML = `<strong>${roleEn} (EN):</strong> ${englishText}`;
+                    speakText(`${roleEn} translation: ${englishText}`, "en-US");
+                    isEnglishPhase = false;
+                    currentIndex++; 
+                }
+            }
+        }
+
+        async function translate(text) {
+            try {
+                const res = await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=fr&tl=en&dt=t&q=' + encodeURIComponent(text));
+                const data = await res.json();
+                return data[0].map(item => item[0]).join('');
+            } catch (error) { return "[Translation connection error]"; }
+        }
+
+        function speakText(text, lang) {
+            try {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = lang;
+                utterance.rate = lang === "fr-CA" ? 0.85 : 1.0;
+                window.speechSynthesis.speak(utterance);
+            } catch(e) {}
+        }
+    </script>
+</body>
+</html>
