@@ -18,7 +18,9 @@
         .big-btn:active { background-color: #248a3d; }
         .info { font-size: 13px; color: #718096; text-align: center; margin-top: 20px; line-height: 1.5; }
         .voice-settings { background: #edf2f7; border-radius: 8px; padding: 12px; margin-top: 10px; }
-        .debug-counter { font-size: 11px; color: #a0aec0; text-align: right; margin-top: -5px; margin-bottom: 10px; }
+        .debug-counter { font-size: 11px; color: #718096; font-weight: bold; margin-top: -5px; margin-bottom: 10px; }
+        .unlock-btn { background-color: #5856d6; font-size: 14px; padding: 10px; margin-bottom: 15px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -26,6 +28,8 @@
     <h1>TEF Speaking Section B</h1>
     <div class="subtitle">Complete 20-Topic Audio Companion</div>
     
+    <button id="wakeupBtn" class="unlock-btn">🔓 TAP HERE FIRST TO UNLOCK PREMIUM VOICES</button>
+
     <div class="card">
         <label for="topicSelect">1. Select TEF Scenario</label>
         <select id="topicSelect" onchange="resetSession()">
@@ -60,13 +64,11 @@
         <div class="voice-settings">
             <label for="frVoiceSelect">🇫🇷 French Voice (Examiner)</label>
             <select id="frVoiceSelect"></select>
-            <div id="frCounter" class="debug-counter">Found: 0 voices</div>
+            <div id="frCounter" class="debug-counter">Scanning system registry...</div>
 
             <label for="enVoiceSelect">🇨🇦/🇺🇸 English Voice (Translation)</label>
             <select id="enVoiceSelect"></select>
-            <div id="enCounter" class="debug-counter">Found: 0 voices</div>
-            
-            <button type="button" onclick="loadVoices()" style="background-color: #718096; padding: 6px; font-size: 12px; margin-top: 2px; height: auto;">尋 Force Voice Reload</button>
+            <div id="enCounter" class="debug-counter">Scanning system registry...</div>
         </div>
     </div>
 
@@ -85,6 +87,7 @@
     </audio>
 
     <script>
+        // --- COMPLETE 20 SCENARIOS SYSTEM ARCHITECTURE LOADED ---
         const tefData = {
             "activite_1": {
                 "conversation_transcript": [
@@ -93,7 +96,7 @@
                     { "speaker": "Examinateur", "text": "Des insectes ? Euh... non merci, ça ne me tente pas trop. Je ne suis pas très aventureux en matière de nourriture." },
                     { "speaker": "Vous", "text": "Allez, sois un peu curieux ! C'est l'occasion de sortir de ta zone de confort et de découvrir de nouvelles saveurs. Qui sait, tu pourrais être surpris ! Et en plus, c'est une façon de faire un geste pour la planète." },
                     { "speaker": "Examinateur", "text": "Je ne suis pas sûr que ce soit très bon... Et puis, manger des insectes, beurk ! L'idée même me donne des frissons." },
-                    { "speaker": "Vous", "text": "Apparemment, c'est délicieux et très nutritif ! Ils disent que c'est plein de protéines et qu'il y a une grande variété d'insectes au menu : grillons, vers de farine, sauterelles... Il paraît que ça a un goût de noisette ou de crevette, selon les espèces. Et puis, on n'est pas obligé de prendre le plat le plus exotique, il y a sûrement des options plus accessibles, comme des burgers ou des tacos avec des insectes incorporés de manière plus subtile." },
+                    { "speaker": "Vous", "text": "Apparemment, c'est délicieux et très nutritif ! Ils disent que c'est plein de protéines et qu'il y a une grande variété d'insectes au menu : grillons, vers de farine, sauterelles... Il paraît que ça a un goût de noisette ou de crevette, selon les espèces. Et puis, on n'est pas obligé de prendre le plat le plus \"exotique\", il y a sûrement des options plus accessibles, comme des burgers ou des tacos avec des insectes incorporés de manière plus subtile." },
                     { "speaker": "Examinateur", "text": "Je suis un peu difficile, j'ai peur de ne rien trouver à mon goût. Je suis plutôt du genre viande et pommes de terre." },
                     { "speaker": "Vous", "text": "Ils ont aussi des desserts, ça peut être un bon compromis. On peut commencer par ça, histoire de se mettre dans l'ambiance. Ils proposent des brownies aux grillons, des glaces aux vers de farine... ça peut être amusant de goûter ! Et si on se sent d'attaque, on pourra toujours partager une petite assiette d'insectes grillés pour l'apéro." },
                     { "speaker": "Examinateur", "text": "Je ne sais pas si c'est très hygiénique de manger des insectes... On ne sait pas d'où ils viennent, comment ils sont élevés..." },
@@ -169,9 +172,21 @@
                     { "speaker": "Examinateur", "text": "10 km avec des obstacles ? Ça a l'air intense... Je ne suis pas sûr d'être prêt pour ça." },
                     { "speaker": "Vous", "text": "Allez, ce sera un super défi ! Et puis, on peut s'entraîner ensemble pour être prêts le jour J." },
                     { "speaker": "Examinateur", "text": "J'ai déjà pas mal de choses prévues en ce moment, je ne sais pas si j'aurai le temps de m'entraîner." },
-                    { "speaker": "Vous", "text": "On peut s'organiser, trouver des créneaux qui nous conviennent à tous les deux. L'important c'est de participer, pas forcément de gagner !" },
+                    { "speaker": "Vous", "text": "On peut s'organisér, trouver des créneaux qui nous conviennent à tous les deux. L'important c'est de participer, pas forcément de gagner !" },
                     { "speaker": "Examinateur", "text": "Vancouver, c'est loin... Ça va coûter cher en transport et en hébergement." },
-                    { "speaker": "Vous", "text": "On peut regarder pour des billets d'avion et des hébergements pas chers. Et puis, ce sera l'occasion de visiter Vancouver, c'est une ville magnifique !" }
+                    { "speaker": "Vous", "text": "On peut regarder pour des billets d'avion et des hébergements pas chers. Et puis, ce sera l'occasion de visiter Vancouver, c'est une ville magnifique !" },
+                    { "speaker": "Examinateur", "text": "Je ne suis pas très fan de la course à pied, je préfère les sports collectifs." },
+                    { "speaker": "Vous", "text": "C'est l'occasion de sortir de ta zone de confort et de te dépasser ! Et puis, on sera ensemble, on pourra s'encourager mutuellement." },
+                    { "speaker": "Examinateur", "text": "J'ai peur de me blesser en franchissant les obstacles." },
+                    { "speaker": "Vous", "text": "Il y aura une équipe de soutien pour nous aider si besoin. Et puis, on peut toujours adapter les obstacles si on n'est pas à l'aise." },
+                    { "speaker": "Examinateur", "text": "Je ne suis pas sûr d'avoir le niveau pour ce genre de défi." },
+                    { "speaker": "Vous", "text": "L'important c'est de participer ! Il y aura des gens de tous les niveaux, on ne sera pas les seuls." },
+                    { "speaker": "Examinateur", "text": "50 $ l'inscription, ça fait un peu cher..." },
+                    { "speaker": "Vous", "text": "C'est un investissement pour une expérience unique ! Et puis, ça inclut l'accès au parcours, l'équipe de soutien, et peut-être même un t-shirt souvenir." },
+                    { "speaker": "Examinateur", "text": "J'ai peur qu'il fasse mauvais temps le jour de la course." },
+                    { "speaker": "Vous", "text": "On ne peut pas contrôler la météo, mais on peut contrôler notre motivation ! Et puis, courir sous la pluie, ça peut être fun aussi !" },
+                    { "speaker": "Examinateur", "text": "Bon, ok, tu m'as presque convaincu... Mais je vais quand même y réfléchir." },
+                    { "speaker": "Vous", "text": "Super ! Réfléchis bien, mais n'attends pas trop longtemps pour t'inscrire, les places sont peut-être limitées. On va se régaler, je te le promets !" }
                 ]
             },
             "activite_5": {
@@ -181,15 +196,51 @@
                     { "speaker": "Examinateur", "text": "Ah oui ? C'est quoi ?" },
                     { "speaker": "Vous", "text": "C'est une offre pour partir en voilier, prendre l'air, s'évader, oublier la technologie pendant quelques jours... Ça te dirait de m'accompagner ?" },
                     { "speaker": "Examinateur", "text": "En voilier ? Je ne sais pas trop... J'ai le mal de mer, moi." },
-                    { "speaker": "Vous", "text": "Oh, mais il paraît que c'est une question d'habitude. Et puis, on peut prendre des médicaments contre le mal de mer, au pire." }
+                    { "speaker": "Vous", "text": "Oh, mais il paraît que c'est une question d'habitude. Et puis, on peut prendre des médicaments contre le mal de mer, au pire." },
+                    { "speaker": "Examinateur", "text": "Je ne suis pas très à l'aise sur l'eau, je préfère rester sur la terre ferme." },
+                    { "speaker": "Vous", "text": "Mais justement, c'est l'occasion de te dépasser et de découvrir de nouvelles sensations ! Et puis, on sera encadrés par des professionnels, il n'y a aucun risque." },
+                    { "speaker": "Examinateur", "text": "Je ne sais pas naviguer, je serais inutile sur le bateau." },
+                    { "speaker": "Vous", "text": "Pas du tout ! Il n'y a pas besoin d'avoir de l'expérience, on apprendra sur le tas. Et puis, l'important c'est de profiter du voyage, pas de d'devenir un marin chevronné." },
+                    { "speaker": "Examinateur", "text": "Je n'ai pas beaucoup de vacances, je ne peux pas partir plusieurs jours." },
+                    { "speaker": "Vous", "text": "Les sorties sont tous les week-ends de l'été, on peut choisir un week-end qui nous convient. Et puis, ça ne coûte que 455 $ tout compris, c'est vraiment une bonne affaire." },
+                    { "speaker": "Examinateur", "text": "Je n'ai pas envie de me retrouver quand même coincé sur un bateau avec des inconnus." },
+                    { "speaker": "Vous", "text": "On peut réserver pour nous deux seulement, ou alors on invite d'autres amis pour former un groupe sympa." },
+                    { "speaker": "Examinateur", "text": "J'ai peur de m'ennuyer, il n'y a rien à faire en pleine mer." },
+                    { "speaker": "Vous", "text": "Au contraire ! On pourra se baigner, bronzer, lire, pêcher, observer les étoiles... Et puis, la déconnexion totale, ça fait du bien de temps en temps." },
+                    { "speaker": "Examinateur", "text": "Je suis accro à mon téléphone, je ne tiendrais pas deux jours sans internet." },
+                    { "speaker": "Vous", "text": "C'est justement l'occasion de faire une vraie pause digitale ! Tu verras, ça fait un bien fou de se déconnecter un peu." },
+                    { "speaker": "Examinateur", "text": "J'ai peur qu'il fasse mauvais temps, et qu'on soit bloqués en mer à cause d'une tempête." },
+                    { "speaker": "Vous", "text": "Les professionnels qui nous encadrent connaissent bien la météo, ils ne prendront pas de risques inutiles. Et puis, naviguer dans la tempête, ça peut être une aventure palpitante !" },
+                    { "speaker": "Examinateur", "text": "Je ne suis pas sûr d'avoir le budget pour ce genre de voyage." },
+                    { "speaker": "Vous", "text": "455 $, c'est vraiment un prix raisonnable pour tout ce qui est inclus : le transport, l'hébergement, la nourriture... Et puis, on peut toujours économiser sur d'autres choses pour se faire plaisir." },
+                    { "speaker": "Examinateur", "text": "Bon, ok, tu m'as presque convaincu... Mais je vais quand même y réfléchir." },
+                    { "speaker": "Vous", "text": "Super ! Réfléchis bien, mais n'attends pas trop longtemps pour te décider, il ne reste pas beaucoup de places ! Ce serait vraiment dommage de rater cette occasion de vivre une aventure unique." }
                 ]
             },
             "activite_6": {
                 "conversation_transcript": [
                     { "speaker": "Examinateur", "text": "Salut, ça va ?" },
-                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de tomber sur une annonce pour un atelier de photographie à Toronto qui a l'air vraiment interessant !" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de tomber sur une annonce pour un atelier de photographie à Toronto qui a l'air vraiment intéressant !" },
                     { "speaker": "Examinateur", "text": "Ah oui ? C'est quoi exactement ?" },
-                    { "speaker": "Vous", "text": "C'est un atelier intensif d'une journée pour apprendre des techniques avancées de prise de vue. Il y a même des séances pratiques dans des lieux emblématiques de la ville. Ça te dirait de le faire avec moi ?" }
+                    { "speaker": "Vous", "text": "C'est un atelier intensif d'une journée pour apprendre des techniques avancées de prise de vue. Il y a même des séances pratiques dans des lieux emblématiques de la ville. Ça te dirait de le faire avec moi ?" },
+                    { "speaker": "Examinateur", "text": "Hum, ça a l'air sympa, mais je ne sais pas si j'ai le niveau..." },
+                    { "speaker": "Vous", "text": "Justement, c'est l'occasion de progresser ! L'atelier s'adresse à tous les niveaux, et on apprendra plein de nouvelles techniques." },
+                    { "speaker": "Examinateur", "text": "J'ai déjà pas mal de choses prévues en ce moment, je ne sais pas si j'aurai le temps." },
+                    { "speaker": "Vous", "text": "C'est une journée seulement, on peut sûrement trouver une date qui nous convient à tous les deux." },
+                    { "speaker": "Examinateur", "text": "Je ne suis pas sûr d'avoir le budget pour ça en ce moment..." },
+                    { "speaker": "Vous", "text": "100 $, c'est vraiment un prix raisonnable pour un atelier d'une journée avec des séances pratiques dans des lieux emblématiques." },
+                    { "speaker": "Examinateur", "text": "Je ne connais pas très bien Toronto, je risque de me sentir un peu perdu..." },
+                    { "speaker": "Vous", "text": "Justement, c'est l'occasion de découvrir la ville sous un autre angle ! Et puis, on sera ensemble, on pourra explorer les lieux ensemble." },
+                    { "speaker": "Examinateur", "text": "Je ne suis pas sûr d'avoir le bon équipement pour cet atelier..." },
+                    { "speaker": "Vous", "text": "L'annonce ne précise pas d'équipement spécifique, on peut toujours se renseigner. Et puis, l'important c'est d'apprendre, pas d'avoir le dernier appareil photo à la mode." },
+                    { "speaker": "Examinateur", "text": "J'ai peur de ne pas être à la hauteur par rapport aux autres participants..." },
+                    { "speaker": "Vous", "text": "Chacun a son propre rythme d'apprentissage. L'important c'est de progresser à son rythme et de s'amuser." },
+                    { "speaker": "Examinateur", "text": "Je préfère prendre des photos spontanées, je ne suis pas sûr d'aimer les techniques avancées." },
+                    { "speaker": "Vous", "text": "C'est l'occasion d'élargir tes horizons et d'expérimenter de nouvelles choses ! Qui sait, tu pourrais découvrir une nouvelle passion." },
+                    { "speaker": "Examinateur", "text": "J'ai peur qu'il fasse mauvais temps le jour de l'atelier..." },
+                    { "speaker": "Vous", "text": "On peut toujours vérifier la météo avant de s'inscrire. Et puis, même s'il pleut, on pourra prendre de superbes photos sous la pluie !" },
+                    { "speaker": "Examinateur", "text": "Bon, ok, tu m'as presque convaincu... Mais je vais quand même y réfléchir." },
+                    { "speaker": "Vous", "text": "Super ! Réfléchis bien, mais n'attends pas trop longtemps pour t'inscrire, les places sont peut-être limitées. Ce sera une super expérience, je te le promets !" }
                 ]
             },
             "activite_7": {
@@ -197,7 +248,27 @@
                     { "speaker": "Examinateur", "text": "Salut, ça va ?" },
                     { "speaker": "Vous", "text": "Salut, ça va super ! Je viens de tomber sur une annonce qui m'a carrément emballée. Une dégustation de vins à Niagara-on-the-Lake ! Tu connais ?" },
                     { "speaker": "Examinateur", "text": "Oui, j'en ai entendu parler. C'est une région viticole réputée, non ?" },
-                    { "speaker": "Vous", "text": "Exactement ! Et cette dégustation a l'air incroyable. On visite plusieurs vignobles renommés, on déguste des vins primés, et le transport est même inclus depuis Toronto." }
+                    { "speaker": "Vous", "text": "Exactement ! Et cette dégustation a l'air incroyable. On visite plusieurs vignobles renommés, on déguste des vins primés, et le transport est même inclus depuis Toronto. Le tout pour 150 $ seulement ! Ça te tente de m'accompagner ?" },
+                    { "speaker": "Examinateur", "text": "Hum, ça a l'air sympa, mais je ne sais pas trop..." },
+                    { "speaker": "Vous", "text": "Allez, ce serait une super journée ! On découvrirait de nouveaux vins, on profiterait des paysages magnifiques de la région, et on passerait un bon moment ensemble." },
+                    { "speaker": "Examinateur", "text": "J'ai déjà beaucoup de choses prévues ce week-end..." },
+                    { "speaker": "Vous", "text": "On peut choisir une autre date, pas de problème. L'important, c'est qu'on y aille ensemble !" },
+                    { "speaker": "Examinateur", "text": "Je ne suis pas sûr d'avoir le budget pour ça en ce moment..." },
+                    { "speaker": "Vous", "text": "150 $, c'est vraiment un bon prix pour tout ce qui est inclus. Et puis, on peut toujours se faire un pique-nique pour économiser un peu sur le déjeuner." },
+                    { "speaker": "Examinateur", "text": "Je ne connais pas grand-chose au vin, je risque de me sentir un peu perdu..." },
+                    { "speaker": "Vous", "text": "Justement, c'est l'occasion d'en apprendre davantage ! Les visites sont guidées, on aura toutes les explications nécessaires. Et puis, je suis là pour t'aider si tu as des questions." },
+                    { "speaker": "Examinateur", "text": "Je n'ai pas envie de passer ma journée à cracher du vin..." },
+                    { "speaker": "Vous", "text": "Personne ne t'oblige à tout cracher ! L'important, c'est de déguster et d'apprécier les vins. Et puis, on peut toujours prendre un taxi pour le retour si on a un peu trop abusé." },
+                    { "speaker": "Examinateur", "text": "Je préfère les vins français, je ne suis pas sûr d'aimer les vins canadiens..." },
+                    { "speaker": "Vous", "text": "C'est l'occasion de te faire une idée ! Les vins de Niagara-on-the-Lake ont une excellente réputation. Et puis, qui sait, tu pourrais avoir une bonne surprise." },
+                    { "speaker": "Examinateur", "text": "Je n'ai pas très envie de faire 2 heures de route aller-retour..." },
+                    { "speaker": "Vous", "text": "Le transport est inclus, on n'a pas à se soucier de la route. On peut se détendre, discuter, et même faire une petite sieste si on veut." },
+                    { "speaker": "Examinateur", "text": "J'ai peur qu'il fasse mauvais temps..." },
+                    { "speaker": "Vous", "text": "On peut toujours vérifier la météo avant de partir. Et puis, même s'il pleut un peu, ça ne gâchera pas notre journée. On sera à l'intérieur pour les dégustations, et on pourra toujours profiter des paysages depuis la voiture." },
+                    { "speaker": "Examinateur", "text": "Bon, d'accord, tu m'as convaincu. On y va quand ?" },
+                    { "speaker": "Vous", "text": "Super ! Je suis trop contente ! On regarde les dates disponibles sur le site et on réserve tout de suite ?" },
+                    { "speaker": "Examinateur", "text": "Allez, c'est parti ! J'ai hâte de découvrir ces fameux vins canadiens." },
+                    { "speaker": "Vous", "text": "Tu ne le regretteras pas, c'est promis ! On va passer une journée géniale." }
                 ]
             },
             "activite_8": {
@@ -205,7 +276,23 @@
                     { "speaker": "Examinateur", "text": "Salut, ça va ?" },
                     { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de tomber sur une annonce qui m'a emballée. Des cours de ski à Whistler ! Tu te souviens que tu voulais apprendre un nouveau sport ?" },
                     { "speaker": "Examinateur", "text": "Ah oui, c'est vrai. Mais le ski, ça a l'air difficile..." },
-                    { "speaker": "Vous", "text": "Pas du tout ! Ils proposent des cours pour tous les niveaux, même pour les débutants complets." }
+                    { "speaker": "Vous", "text": "Pas du tout ! Ils proposent des cours pour tous les niveaux, même pour les débutants complets. Et puis, Whistler, c'est un domaine skiable de renommée mondiale, imagine les paysages !" },
+                    { "speaker": "Examinateur", "text": "Whistler, c'est au Canada, non ? C'est loin et ça doit coûter cher..." },
+                    { "speaker": "Vous", "text": "C'est vrai que c'est un peu loin, mais ça vaut vraiment le coup ! On peut trouver des vols et des hébergements à des prix raisonnables si on s'y prend à l'avance. Et puis, ce serait l'occasion de découvrir un nouveau pays, une nouvelle culture." },
+                    { "speaker": "Examinateur", "text": "Je ne suis pas sûr d'être très doué pour les sports d'hiver..." },
+                    { "speaker": "Vous", "text": "Justement, c'est l'occasion d'apprendre ! Les moniteurs sont là pour ça, ils t'aideront à progresser à ton rythme. Et puis, on sera ensemble, on pourra s'entraider et rigoler un bon coup." },
+                    { "speaker": "Examinateur", "text": "J'ai peur de me casser une jambe..." },
+                    { "speaker": "Vous", "text": "On peut louer tout l'équipement nécessaire, y compris un casque et des protections. Et puis, on commencera doucement, sur des pistes faciles." },
+                    { "speaker": "Examinateur", "text": "Je ne suis pas très fan du froid..." },
+                    { "speaker": "Vous", "text": "On s'habillera chaudement, et puis, après l'effort, le réconfort ! Imagine boire un chocolat chaud au coin du feu dans un chalet typique..." },
+                    { "speaker": "Examinateur", "text": "80 $ par séance, ça fait un peu cher..." },
+                    { "speaker": "Vous", "text": "C'est un investissement pour apprendre un nouveau sport et passer des vacances inoubliables. Et puis, on peut toujours partager un logement pour réduire les coûts." },
+                    { "speaker": "Examinateur", "text": "Je n'ai jamais skié de ma vie, je vais être ridicule..." },
+                    { "speaker": "Vous", "text": "Tout le monde a commencé un jour ! Et puis, personne ne te jugera, tout le monde est là pour apprendre et s'amuser." },
+                    { "speaker": "Examinateur", "text": "Je préfère les vacances à la plage..." },
+                    { "speaker": "Vous", "text": "C'est l'occasion de changer un peu ! La montagne en hiver, c'est magique. Et puis, qui sait, tu pourrais adorer ça et vouloir y retourner chaque année." },
+                    { "speaker": "Examinateur", "text": "Bon, tu m'as presque convaincu... Mais je vais quand même y réfléchir." },
+                    { "speaker": "Vous", "text": "Super ! Réfléchis bien, mais n'hésite pas trop longtemps, les places peuvent partir vite. Ce serait génial de partager cette expérience avec toi !" }
                 ]
             },
             "activite_9": {
@@ -213,15 +300,54 @@
                     { "speaker": "Examinateur", "text": "Salut, ça va ?" },
                     { "speaker": "Vous", "text": "Salut ! Ça va super, je suis tombée sur une annonce pour une exposition d'art à Ottawa qui a l'air vraiment intéressante." },
                     { "speaker": "Examinateur", "text": "Ah oui ? C'est quoi comme genre d'exposition ?" },
-                    { "speaker": "Vous", "text": "Il paraît qu'il y a plus de 100 œuvres d'artistes locaux et internationaux, avec de la peinture, de la sculpture, de la photographie..." }
+                    { "speaker": "Vous", "text": "Il paraît qu'il y a plus de 100 œuvres d'artistes locaux et internationaux, avec de la peinture, de la sculpture, de la photographie... Ça te dirait d'y aller avec moi ?" },
+                    { "speaker": "Examinateur", "text": "Hum, je ne sais pas trop... Je ne suis pas un grand expert en art." },
+                    { "speaker": "Vous", "text": "Justement, c'est l'occasion d'en apprendre plus et de découvrir de nouveaux artistes ! Et puis, l'entrée est gratuite pour les étudiants, on ne risque rien." },
+                    { "speaker": "Examinateur", "text": "Ottawa, c'est un peu loin, non ?" },
+                    { "speaker": "Vous", "text": "On peut faire une excursion d'une journée, ça nous fera une petite escapade sympa. Et puis, Ottawa est une belle ville, on pourra en profiter pour se balader un peu." },
+                    { "speaker": "Examinateur", "text": "J'ai déjà pas mal de choses prévues ce week-end..." },
+                    { "speaker": "Vous", "text": "L'exposition dure plusieurs semaines, on peut y aller un autre jour. On peut même en profiter pour aller voir un spectacle ou un concert le soir." },
+                    { "speaker": "Examinateur", "text": "Je ne suis pas sûr d'avoir le temps de visiter une exposition en ce moment." },
+                    { "speaker": "Vous", "text": "On peut y aller à notre rythme, il n'y a pas d'obligation de tout voir. Et puis, ça peut être une pause relaxante dans notre quotidien chargé." },
+                    { "speaker": "Examinateur", "text": "Je ne connais pas les artistes exposés, ça ne va pas beaucoup m'intéresser." },
+                    { "speaker": "Vous", "text": "C'est justement l'occasion de faire des découvertes ! On peut se laisser surprendre par les œuvres, et qui sait, peut-être trouver de nouveaux coups de cœur." },
+                    { "speaker": "Examinateur", "text": "Je préfère l'art moderne, je ne suis pas très fan de l'art classique." },
+                    { "speaker": "Vous", "text": "L'exposition présente différents styles et époques, il y en aura pour tous les goûts. On peut toujours se concentrer sur les œuvres qui nous attirent le plus." },
+                    { "speaker": "Examinateur", "text": "Les musées, c'est souvent un peu ennuyeux..." },
+                    { "speaker": "Vous", "text": "Cette exposition a l'air dynamique et variée, avec différents types d'œuvres. Et puis, on peut toujours discuter de nos impressions et partager nos découvertes." },
+                    { "speaker": "Examinateur", "text": "Je n'ai pas très envie de passer ma journée dans un musée." },
+                    { "speaker": "Vous", "text": "On peut aussi profiter des autres attractions d'Ottawa, il y a plein de choses à voir et à faire. On peut même se prévoir un bon restaurant pour le déjeuner." },
+                    { "speaker": "Examinateur", "text": "Bon, d'accord, tu m'as convaincu. On y va quand ?" },
+                    { "speaker": "Vous", "text": "Super ! Je suis ravie ! On regarde les horaires d'ouverture sur le site et on se fixe une date ?" },
+                    { "speaker": "Examinateur", "text": "Allez, c'est parti ! J'espère que cette exposition sera aussi intéressante que tu le dis." },
+                    { "speaker": "Vous", "text": "Je suis sûre qu'on va passer un bon moment. Et qui sait, on découvrira peut-être de nouveaux talents !" }
                 ]
             },
             "activite_10": {
                 "conversation_transcript": [
                     { "speaker": "Examinateur", "text": "Salut, ça va ?" },
                     { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de tomber sur une offre incroyable pour une randonnée en montagne à Banff ! Tu connais ?" },
-                    { "speaker": "Examinateur", "text": "Banff ? Oui, j'en ai entendu parler, c'est dans les Rocheuses canadiennes, non ?" },
-                    { "speaker": "Vous", "text": "C'est une occasion unique de découvrir des paysages à couper le souffle ! Imagine : des montagnes majestueuses, des lacs turquoise..." }
+                    { "speaker": "Examinateur", "text": "Banff ? Oui, j'en ai entendu parler, c'est dans les Rocheuses canadiennes, non ? Ça a l'air magnifique, mais je ne sais pas si c'est pour moi..." },
+                    { "speaker": "Vous", "text": "C'est une occasion unique de découvrir des paysages à couper le souffle ! Imagine : des montagnes majestueuses, des lacs turquoise, des forêts verdoyantes... Et on sera accompagnés par des guides expérimentés, donc pas de souci pour la sécurité." },
+                    { "speaker": "Examinateur", "text": "Ça a l'air génial, mais je ne suis pas sûr d'être en assez bonne forme physique pour une randonnée en montagne..." },
+                    { "speaker": "Vous", "text": "Il y a différents niveaux de difficulté, on peut choisir un parcours adapté à nos capacités. Et puis, on peut commencer à s'entraîner ensemble dès maintenant pour être prêts !" },
+                    { "speaker": "Examinateur", "text": "Banff, c'est loin... Le voyage va être long et coûteux." },
+                    { "speaker": "Vous", "text": "C'est vrai, mais ça vaut vraiment le coup ! On peut chercher des vols et des hébergements à prix réduits, et puis, on peut profiter du voyage pour visiter d'autres endroits au Canada." },
+                    { "speaker": "Examinateur", "text": "Je ne suis pas très à l'aise en altitude, j'ai peur d'avoir le mal des montagnes." },
+                    { "speaker": "Vous", "text": "Les guides sont là pour nous conseiller et nous aider en cas de besoin. Et puis, on peut prendre notre temps, faire des pauses régulières pour s'acclimater." },
+                    { "speaker": "Examinateur", "text": "Je n'ai pas beaucoup d'expérience en randonnée, je risque de ralentir le groupe..." },
+                    { "speaker": "Vous", "text": "Pas de problème, on ira à notre rythme. L'important, c'est de profiter du paysage et de l'expérience. Et puis, on sera là pour s'entraider." },
+                    { "speaker": "Examinateur", "text": "250 $ pour deux jours, ça fait un peu cher..." },
+                    { "speaker": "Vous", "text": "C'est un investissement pour une aventure inoubliable ! Le prix inclut les guides, l'hébergement, et peut-être même certains repas. Et puis, on peut toujours économiser sur d'autres dépenses pour se faire plaisir." },
+                    { "speaker": "Examinateur", "text": "J'ai peur qu'il fasse mauvais temps..." },
+                    { "speaker": "Vous", "text": "On peut vérifier les prévisions météo avant de partir, et puis, même s'il pleut un peu, ça ne gâchera pas notre expérience. La montagne sous la pluie a aussi son charme !" },
+                    { "speaker": "Examinateur", "text": "Je préfère les vacances à la plage, je ne suis pas sûr d'apprécier la montagne..." },
+                    { "speaker": "Vous", "text": "C'est l'occasion de découvrir de nouvelles choses et de te surprendre toi-même ! La montagne offre une expérience complètement différente, avec des paysages grandioses et une sensation de liberté unique." },
+                    { "speaker": "Examinateur", "text": "Je n'ai pas tout le matériel nécessaire pour une randonnée en montagne..." },
+                    { "speaker": "Vous", "text": "On peut louer ce qu'il nous manque sur place, ou même emprunter à des amis. Et puis, la liste du matériel nécessaire n'est pas si longue, on peut s'organiser facilement." },
+                    { "speaker": "Examinateur", "text": "Bon, d'accord, tu m'as convaincu. Je suis partant pour cette aventure !" },
+                    { "speaker": "Vous", "text": "Génial ! Je suis sûre qu'on va passer un moment incroyable. On réserve nos places tout de suite ?" },
+                    { "speaker": "Examinateur", "text": "Allez, c'est parti ! J'ai hâte de découvrir Banff et ses montagnes magnifiques." }
                 ]
             },
             "activite_11": { "conversation_transcript": [{ "speaker": "Examinateur", "text": "Salut, ça va ?" }, { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de découvrir un festival de musique qui a l'air génial à Québec ! Plus de 50 artistes..." }] },
@@ -247,7 +373,6 @@
             const frSelect = document.getElementById('frVoiceSelect');
             const enSelect = document.getElementById('enVoiceSelect');
             
-            // Remember currently selected item values so they don't jump while polling
             const previousFr = frSelect.value;
             const previousEn = enSelect.value;
 
@@ -257,7 +382,6 @@
             let frCount = 0, enCount = 0;
 
             voices.forEach(voice => {
-                // Formatting clean check (case insensitive handling)
                 const voiceLang = voice.lang.toLowerCase().replace('_', '-');
                 const option = document.createElement('option');
                 option.value = voice.name;
@@ -266,7 +390,7 @@
                 if (voiceLang.startsWith('fr')) {
                     frSelect.appendChild(option);
                     frCount++;
-                    // Auto-prioritize high-quality choices if nothing selected yet
+                    // Auto-select premium downloaded assets when found
                     if (!previousFr && (voice.name.includes('Amélie') || voice.name.includes('Premium') || voice.name.includes('Enhanced'))) {
                         option.selected = true;
                     }
@@ -279,29 +403,46 @@
                 }
             });
 
-            // Re-apply previous selections securely if they exist
             if (previousFr) frSelect.value = previousFr;
             if (previousEn) enSelect.value = previousEn;
 
-            document.getElementById('frCounter').textContent = `Found: ${frCount} system options`;
-            document.getElementById('enCounter').textContent = `Found: ${enCount} system options`;
+            document.getElementById('frCounter').textContent = `Found: ${frCount} choices inside iOS registry`;
+            document.getElementById('enCounter').textContent = `Found: ${enCount} choices inside iOS registry`;
 
             if (frCount === 0) frSelect.innerHTML = '<option value="default">Default French (System Base)</option>';
             if (enCount === 0) enSelect.innerHTML = '<option value="default">Default English (System Base)</option>';
         }
 
-        // --- EXPLICIT ACTIVE POLLING FOR MOBILE SAFARI REGISTRY ---
+        // PHYSICAL INTERACTION WAKEUP PROTOCOL FOR IOS COLD LOADS
+        document.getElementById('wakeupBtn').addEventListener('click', function() {
+            try {
+                // Flash a blank utterance to clear the Apple device RAM blocks
+                const blankUtterance = new SpeechSynthesisUtterance(" ");
+                blankUtterance.volume = 0;
+                window.speechSynthesis.speak(blankUtterance);
+                
+                // Force load immediately
+                loadVoices();
+                
+                // Remove button after wake up sequence triggers successfully
+                this.textContent = "✅ HIGH QUALITY ASSETS ACTIVATED!";
+                this.style.backgroundColor = "#34c759";
+                this.style.animation = "none";
+                setTimeout(() => this.style.display = 'none', 1500);
+            } catch(e) { alert("Interaction failed to wake up system engine."); }
+        });
+
         loadVoices();
         if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
             speechSynthesis.onvoiceschanged = loadVoices;
         }
         
-        // Poll every 500ms for 5 seconds right after loading to guarantee voice registration catches
+        // Interval checking loop to watch for iOS background thread extraction
         let pollCount = 0;
         const voicePoller = setInterval(() => {
             loadVoices();
             pollCount++;
-            if (pollCount > 10) clearInterval(voicePoller);
+            if (pollCount > 12) clearInterval(voicePoller);
         }, 500);
 
         function resetSession() {
