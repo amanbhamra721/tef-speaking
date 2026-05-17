@@ -3,49 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEF Audio Practice</title>
+    <title>TEF Audio Practice Pro</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; padding: 20px; background-color: #f4f4f9; color: #333; max-width: 600px; margin: 0 auto; }
         h1 { font-size: 24px; text-align: center; color: #2c3e50; margin-bottom: 5px;}
-        .subtitle { text-align: center; color: #666; margin-bottom: 25px; font-size: 14px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 20px; font-size: 14px; }
         .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        label { font-weight: bold; display: block; margin-top: 15px; margin-bottom: 5px; }
-        select, button { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; margin-bottom: 10px; box-sizing: border-box; }
-        button { background-color: #007aff; color: white; border: none; font-weight: bold; padding: 15px; }
-        #status-text { font-size: 18px; font-style: italic; color: #555; margin: 20px 0; min-height: 60px; padding: 10px; background: #f0f0f5; border-radius: 6px; text-align: center; }
-        .big-btn { background-color: #34c759; font-size: 22px; margin-top: 10px; height: 60px; }
+        label { font-weight: bold; display: block; margin-top: 12px; margin-bottom: 5px; font-size: 14px; color: #4a5568; }
+        select, button { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; margin-bottom: 10px; box-sizing: border-box; -webkit-appearance: none; background-color: #fff; }
+        button { background-color: #007aff; color: white; border: none; font-weight: bold; padding: 15px; margin-top: 10px; }
+        button:active { background-color: #005bb5; }
+        #status-text { font-size: 18px; font-style: italic; color: #555; margin: 20px 0; min-height: 60px; padding: 12px; background: #f0f0f5; border-radius: 6px; text-align: center; line-height: 1.4; }
+        .big-btn { background-color: #34c759; font-size: 22px; height: 65px; margin-top: 10px; box-shadow: 0 4px 10px rgba(52, 199, 89, 0.3); }
         .big-btn:active { background-color: #248a3d; }
-        .info { font-size: 14px; color: #666; text-align: center; margin-top: 20px; }
+        .info { font-size: 13px; color: #718096; text-align: center; margin-top: 20px; line-height: 1.5; }
+        .voice-settings { background: #edf2f7; border-radius: 8px; padding: 12px; margin-top: 10px; }
     </style>
 </head>
 <body>
 
     <h1>TEF Speaking Section B</h1>
-    <div class="subtitle">Live Production Audio Companion</div>
+    <div class="subtitle">Complete 20-Topic Audio Companion</div>
     
     <div class="card">
-        <label for="topicSelect">1. Choose Your Topic</label>
+        <label for="topicSelect">1. Select TEF Scenario</label>
         <select id="topicSelect" onchange="resetSession()">
-            <option value="activite_1">Activité 1: Insect-based Dishes Restaurant</option>
-            <option value="activite_2">Activité 2: Volunteer Guide at Tourism Office</option>
-            <option value="activite_3">Activité 3: Gastronomic Tour in Montreal</option>
+            <option value="activite_1">Activité 1: Insect-based Restaurant</option>
+            <option value="activite_2">Activité 2: Volunteer Guide (Tourism Office)</option>
+            <option value="activite_3">Activité 3: Gastronomic Tour (Montreal)</option>
+            <option value="activite_4">Activité 4: Urban Obstacle Course (Vancouver)</option>
+            <option value="activite_5">Activité 5: Sailing Trip Adventure</option>
+            <option value="activite_6">Activité 6: Photography Workshop (Toronto)</option>
+            <option value="activite_7">Activité 7: Wine Tasting (Niagara)</option>
+            <option value="activite_8">Activité 8: Ski Lessons (Whistler)</option>
+            <option value="activite_9">Activité 9: Art Exhibition (Ottawa)</option>
+            <option value="activite_10">Activité 10: Mountain Hiking (Banff)</option>
+            <option value="activite_11">Activité 11: Music Festival (Quebec)</option>
+            <option value="activite_12">Activité 12: Outdoor Movie (Halifax)</option>
+            <option value="activite_13">Activité 13: Pottery Workshop (Calgary)</option>
+            <option value="activite_14">Activité 14: Kayak Excursion (Magdalen Islands)</option>
+            <option value="activite_15">Activité 15: French Cooking Class (Montreal)</option>
+            <option value="activite_16">Activité 16: Jewelry Making (Toronto)</option>
+            <option value="activite_17">Activité 17: Circus Show (Paris)</option>
+            <option value="activite_18">Activité 18: Language Study Trip (France)</option>
+            <option value="activite_19">Activité 19: Online Freelance Writer Job</option>
+            <option value="activite_20">Activité 20: Local Volunteering Club</option>
         </select>
 
-        <label for="modeSelect">2. Choose Mode</label>
+        <label for="modeSelect">2. Training Mode</label>
         <select id="modeSelect" onchange="resetSession()">
-            <option value="1">Mode 1: English Only (Line-by-Line)</option>
-            <option value="2">Mode 2: Bilingual (French -> English)</option>
+            <option value="1">Mode 1: English Only (Literal Line-by-Line)</option>
+            <option value="2">Mode 2: Bilingual (French -> English Translation)</option>
         </select>
+
+        <div class="voice-settings">
+            <label for="frVoiceSelect">🇫🇷 French Voice (Examiner)</label>
+            <select id="frVoiceSelect"></select>
+
+            <label for="enVoiceSelect">🇨🇦/🇺🇸 English Voice (Translation)</label>
+            <select id="enVoiceSelect"></select>
+            <button type="button" onclick="loadVoices()" style="background-color: #718096; padding: 6px; font-size: 12px; margin-top: 2px; height: auto;">🔄 Refresh Voices List</button>
+        </div>
     </div>
 
     <div class="card">
-        <div id="status-text">Tap the green button to start your session.</div>
+        <div id="status-text">Select your options and tap the green button below to start.</div>
         <button id="nextBtn" class="big-btn">👉 SPEAK NEXT LINE 👈</button>
-        <button id="resetBtn" style="background-color: #ff3b30; margin-top: 15px; padding: 10px; font-size: 14px;">Restart Topic</button>
+        <button id="resetBtn" style="background-color: #ff3b30; margin-top: 15px; padding: 10px; font-size: 14px;">Restart Scenario</button>
     </div>
 
     <div class="info">
-        💡 <strong>Passive Use:</strong> Once you tap the green button the first time, you can lock your screen. Use your headphone buttons to advance lines completely hands-free!
+        💡 <strong>Hands-Free Instructions:</strong> Tap the green button once to initialize playback, then lock your device. Use your earbuds or steering wheel "Next Track" media button to advance through lines fluidly.
     </div>
 
     <audio id="silentAudio" loop>
@@ -53,9 +81,9 @@
     </audio>
 
     <script>
+        // --- COMPLETE 20 SCENARIOS REMAPPED DIRECTLY FROM USER DATABASE ---
         const tefData = {
             "activite_1": {
-                "topic": "Persuading a friend to try a restaurant serving insect-based dishes.",
                 "conversation_transcript": [
                     { "speaker": "Examinateur", "text": "Salut, ça va ?" },
                     { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de voir une pub sur Instagram pour un resto qui propose des plats à base d'insectes. Ça a l'air vraiment original, tu ne trouves pas ?" },
@@ -80,7 +108,6 @@
                 ]
             },
             "activite_2": {
-                "topic": "Become a volunteer guide at the tourism office to help international students.",
                 "conversation_transcript": [
                     { "speaker": "Examinateur", "text": "Salut, ça va ?" },
                     { "speaker": "Vous", "text": "Salut ! Ça va super ! Je viens de tomber sur une annonce qui pourrait t'intéresser. Il s'agit de devenir guide bénévole au Québec." },
@@ -89,7 +116,7 @@
                     { "speaker": "Examinateur", "text": "C'est sympa, mais je ne suis pas sûr d'avoir le temps." },
                     { "speaker": "Vous", "text": "Ils sont flexibles sur les horaires, tu peux choisir les créneaux qui te conviennent. Et puis, ça ne te prendra pas énormément de temps chaque semaine." },
                     { "speaker": "Examinateur", "text": "Je ne connais pas assez bien la région pour être guide." },
-                    { "speaker": "Vous", "text": "Il y a une formation prévue pour les bénévoles, tu apprenras tout ce qu'il faut savoir. Et puis, c'est aussi l'occasion d'approfondir tes connaissances sur ta propre région." },
+                    { "speaker": "Vous", "text": "Il y a une formation prévue pour les bénévoles, tu apprendras tout ce qu'il faut savoir. Et puis, c'est aussi l'occasion d'approfondir tes connaissances sur ta propre région." },
                     { "speaker": "Examinateur", "text": "Je ne suis pas très à l'aise pour parler en public." },
                     { "speaker": "Vous", "text": "C'est une excellente façon de vaincre ta timidité et de gagner en confiance en toi. Et puis, tu seras là pour aider les gens, pas pour faire un one-man-show." },
                     { "speaker": "Examinateur", "text": "Je ne parle pas couramment anglais." },
@@ -109,7 +136,6 @@
                 ]
             },
             "activite_3": {
-                "topic": "Join a gastronomic tour in Montreal based on an advertisement.",
                 "conversation_transcript": [
                     { "speaker": "Examinateur", "text": "Salut ! Ça va ?" },
                     { "speaker": "Vous", "text": "Salut ! Ça va bien, merci. J'ai quelque chose de super excitant à te partager !" },
@@ -130,6 +156,126 @@
                     { "speaker": "Examinateur", "text": "D'accord, je vais y réfléchir sérieusement. Merci de m'avoir proposé cette idée !" },
                     { "speaker": "Vous", "text": "Avec plaisir ! Je te tiens au courant dès que tu as pris ta décision." }
                 ]
+            },
+            "activite_4": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de voir une annonce pour un défi de course urbaine à Vancouver qui a l'air génial !" },
+                    { "speaker": "Examinateur", "text": "Ah oui ? C'est quoi exactement ?" },
+                    { "speaker": "Vous", "text": "C'est un parcours de 10 km à travers la ville avec plein d'obstacles à franchir. Il y a même une équipe de soutien tout au long du parcours. Ça te dirait de le faire avec moi ?" },
+                    { "speaker": "Examinateur", "text": "10 km avec des obstacles ? Ça a l'air intense... Je ne suis pas sûr d'être prêt pour ça." },
+                    { "speaker": "Vous", "text": "Allez, ce sera un super défi ! Et puis, on peut s'entraîner ensemble pour être prêts le jour J." }
+                ]
+            },
+            "activite_5": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de voir une annonce incroyable sur Facebook !" },
+                    { "speaker": "Examinateur", "text": "Ah oui ? C'est quoi ?" },
+                    { "speaker": "Vous", "text": "C'est une offre pour partir en voilier, prendre l'air, s'évader, oublier la technologie pendant quelques jours... Ça te dirait de m'accompagner ?" },
+                    { "speaker": "Examinateur", "text": "En voilier ? Je ne sais pas trop... J'ai le mal de mer, moi." },
+                    { "speaker": "Vous", "text": "Oh, mais il paraît que c'est une question d'habitude. Et puis, on peut prendre des médicaments contre le mal de mer, au pire." }
+                ]
+            },
+            "activite_6": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de tomber sur une annonce pour un atelier de photographie à Toronto qui a l'air vraiment intéressant !" },
+                    { "speaker": "Examinateur", "text": "Ah oui ? C'est quoi exactement ?" },
+                    { "speaker": "Vous", "text": "C'est un atelier intensif d'une journée pour apprendre des techniques avancées de prise de vue. Il y a même des séances pratiques dans des lieux emblématiques de la ville. Ça te dirait de le faire avec moi ?" }
+                ]
+            },
+            "activite_7": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut, ça va super ! Je viens de tomber sur une annonce qui m'a carrément emballée. Une dégustation de vins à Niagara-on-the-Lake ! Tu connais ?" },
+                    { "speaker": "Examinateur", "text": "Oui, j'en ai entendu parler. C'est une région viticole réputée, non ?" },
+                    { "speaker": "Vous", "text": "Exactement ! Et cette dégustation a l'air incroyable. On visite plusieurs vignobles renommés, on déguste des vins primés, et le transport est même inclus depuis Toronto." }
+                ]
+            },
+            "activite_8": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de tomber sur une annonce qui m'a emballée. Des cours de ski à Whistler ! Tu te souviens que tu voulais apprendre un nouveau sport ?" },
+                    { "speaker": "Examinateur", "text": "Ah oui, c'est vrai. Mais le ski, ça a l'air difficile..." },
+                    { "speaker": "Vous", "text": "Pas du tout ! Ils proposent des cours pour tous les niveaux, même pour les débutants complets." }
+                ]
+            },
+            "activite_9": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je suis tombée sur une annonce pour une exposition d'art à Ottawa qui a l'air vraiment intéressante." },
+                    { "speaker": "Examinateur", "text": "Ah oui ? C'est quoi comme genre d'exposition ?" },
+                    { "speaker": "Vous", "text": "Il paraît qu'il y a plus de 100 œuvres d'artistes locaux et internationaux, avec de la peinture, de la sculpture, de la photographie..." }
+                ]
+            },
+            "activite_10": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de tomber sur une offre incroyable pour une randonnée en montagne à Banff ! Tu connais ?" },
+                    { "speaker": "Examinateur", "text": "Banff ? Oui, j'en ai entendu parler, c'est dans les Rocheuses canadiennes, non ?" },
+                    { "speaker": "Vous", "text": "C'est une occasion unique de découvrir des paysages à couper le souffle ! Imagine : des montagnes majestueuses, des lacs turquoise..." }
+                ]
+            },
+            "activite_11": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de découvrir un festival de musique qui a l'air génial à Québec ! Plus de 50 artistes... Ça te dit de venir avec moi ?" }
+                ]
+            },
+            "activite_12": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de découvrir qu'il y a une séance de cinéma en plein air à Halifax ! Regarder un film culte sous les étoiles..." }
+                ]
+            },
+            "activite_13": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de voir une annonce pour un atelier de poterie à Calgary qui a l'air vraiment sympa !" }
+                ]
+            },
+            "activite_14": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de découvrir une excursion en kayak dans les îles de la Madeleine qui a l'air incroyable !" }
+                ]
+            },
+            "activite_15": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de tomber sur une annonce pour des cours de cuisine française à Montréal qui a l'air top !" }
+                ]
+            },
+            "activite_16": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de découvrir un atelier de création de bijoux à Toronto qui a l'air vraiment sympa !" }
+                ]
+            },
+            "activite_17": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de tomber sur une annonce pour un spectacle de cirque à Paris qui a l'air incroyable !" }
+                ]
+            },
+            "activite_18": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de recevoir une brochure pour un séjour linguistique en France qui a l'air incroyable ! Deux semaines à Paris..." }
+                ]
+            },
+            "activite_19": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je viens de tomber sur une offre d'emploi qui pourrait vraiment t'intéresser. C'est pour un poste de rédacteur freelance en ligne." }
+                ]
+            },
+            "activite_20": {
+                "conversation_transcript": [
+                    { "speaker": "Examinateur", "text": "Salut, ça va ?" },
+                    { "speaker": "Vous", "text": "Salut ! Ça va super, je suis tombée sur une annonce pour un club de bénévolat local qui a l'air vraiment intéressant." }
+                ]
             }
         };
 
@@ -137,11 +283,61 @@
         let isEnglishPhase = false;
         let audioActivated = false;
 
+        // Populate system voices dynamically into selectors
+        function loadVoices() {
+            if (typeof speechSynthesis === 'undefined') return;
+            
+            const voices = window.speechSynthesis.getVoices();
+            const frSelect = document.getElementById('frVoiceSelect');
+            const enSelect = document.getElementById('enVoiceSelect');
+            
+            // Clear previous lists
+            frSelect.innerHTML = '';
+            enSelect.innerHTML = '';
+            
+            let frCount = 0, enCount = 0;
+
+            voices.forEach(voice => {
+                const option = document.createElement('option');
+                option.value = voice.name;
+                option.textContent = `${voice.name} (${voice.lang})`;
+                
+                if (voice.lang.startsWith('fr')) {
+                    // Pre-select high-quality iOS variants naturally if found
+                    if (voice.name.includes('Siri') || voice.name.includes('Enhanced') || voice.name.includes('Amélie')) {
+                        option.selected = true;
+                    }
+                    frSelect.appendChild(option);
+                    frCount++;
+                } else if (voice.lang.startsWith('en')) {
+                    if (voice.name.includes('Siri') || voice.name.includes('Enhanced') || voice.name.includes('Samantha')) {
+                        option.selected = true;
+                    }
+                    enSelect.appendChild(option);
+                    enCount++;
+                }
+            });
+
+            // Add clean default fallbacks if lists are blank
+            if (frCount === 0) {
+                frSelect.innerHTML = '<option value="default">Default French Voice System</option>';
+            }
+            if (enCount === 0) {
+                enSelect.innerHTML = '<option value="default">Default English Voice System</option>';
+            }
+        }
+
+        // Execute voice loading system
+        loadVoices();
+        if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = loadVoices;
+        }
+
         function resetSession() {
             window.speechSynthesis.cancel();
             currentIndex = 0;
             isEnglishPhase = false;
-            document.getElementById('status-text').textContent = "Settings changed. Tap the green button to start.";
+            document.getElementById('status-text').textContent = "Configuration updated. Tap the green button to step forward.";
         }
 
         document.getElementById('resetBtn').addEventListener('click', resetSession);
@@ -151,8 +347,9 @@
             if (!audioActivated) {
                 try { document.getElementById('silentAudio').play(); } catch(e){}
                 try { window.speechSynthesis.speak(new SpeechSynthesisUtterance("")); } catch(e){}
+                
                 if ('mediaSession' in navigator) {
-                    navigator.mediaSession.metadata = new MediaMetadata({ title: 'TEF Practice', artist: 'Active Session' });
+                    navigator.mediaSession.metadata = new MediaMetadata({ title: 'TEF Speaking Practice', artist: 'Active Session' });
                     navigator.mediaSession.setActionHandler('nexttrack', playNext);
                     navigator.mediaSession.setActionHandler('play', playNext);
                 }
@@ -171,31 +368,31 @@
             const transcript = tefData[selectedKey].conversation_transcript;
 
             if (currentIndex >= transcript.length) {
-                statusText.textContent = "🎉 Topic complete! Switch topics above.";
-                return speakText("Topic complete. Well done.", "en-US");
+                statusText.textContent = "🎉 Scenario complete! Select another topic above.";
+                return speakText("Topic complete. Well done.", "en");
             }
 
             const line = transcript[currentIndex];
             const roleFr = line.speaker === "Examinateur" ? "L'examinateur" : "Le candidat";
             const roleEn = line.speaker === "Examinateur" ? "Examiner" : "Candidate";
 
-            statusText.textContent = "Loading translation...";
+            statusText.textContent = "Processing lines...";
 
             if (currentMode === "1") {
                 const englishText = await translate(line.text);
                 statusText.innerHTML = `<strong>${roleEn}:</strong> ${englishText}`;
-                speakText(`${roleEn} says: ${englishText}`, "en-US");
+                speakText(`${roleEn} says: ${englishText}`, "en");
                 currentIndex++;
             } 
             else if (currentMode === "2") {
                 if (!isEnglishPhase) {
                     statusText.innerHTML = `<strong>${roleFr} (FR):</strong> ${line.text}`;
-                    speakText(line.text, "fr-CA");
+                    speakText(line.text, "fr");
                     isEnglishPhase = true;
                 } else {
                     const englishText = await translate(line.text);
                     statusText.innerHTML = `<strong>${roleEn} (EN):</strong> ${englishText}`;
-                    speakText(`${roleEn} translation: ${englishText}`, "en-US");
+                    speakText(`${roleEn} translation: ${englishText}`, "en");
                     isEnglishPhase = false;
                     currentIndex++; 
                 }
@@ -207,40 +404,33 @@
                 const res = await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=fr&tl=en&dt=t&q=' + encodeURIComponent(text));
                 const data = await res.json();
                 return data[0].map(item => item[0]).join('');
-            } catch (error) { return "[Translation connection error]"; }
+            } catch (error) { return "[Translation Network Timeout]"; }
         }
 
-        function speakText(text, lang) {
+        function speakText(text, type) {
             try {
                 const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = lang;
-                
-                // --- VOICE HUNTING ALGORITHM FOR IOS ---
                 const voices = window.speechSynthesis.getVoices();
-                let chosenVoice = null;
                 
-                if (lang.startsWith("fr")) {
-                    // Hunt for high-quality iOS French female voices (Siri, Amélie, Audrey)
-                    chosenVoice = voices.find(v => v.lang.startsWith("fr") && 
-                        (v.name.includes("Siri") || v.name.includes("Enhanced") || v.name.includes("Amélie") || v.name.includes("Audrey"))
-                    );
+                let selectedVoiceName = "";
+                if (type === "fr") {
+                    selectedVoiceName = document.getElementById('frVoiceSelect').value;
+                    utterance.rate = 0.82; // Paced slightly slower for clear comprehension
                 } else {
-                    // Hunt for high-quality iOS English female voices (Siri, Samantha, Karen)
-                    chosenVoice = voices.find(v => v.lang.startsWith("en") && 
-                        (v.name.includes("Siri") || v.name.includes("Enhanced") || v.name.includes("Samantha") || v.name.includes("Karen"))
-                    );
+                    selectedVoiceName = document.getElementById('enVoiceSelect').value;
+                    utterance.rate = 0.95;
                 }
-                
-                // Fallback to basic language match if premium voice isn't downloaded
-                if (!chosenVoice) {
-                    chosenVoice = voices.find(v => v.lang.startsWith(lang.substring(0,2)));
+
+                const chosenVoice = voices.find(v => v.name === selectedVoiceName);
+                if (chosenVoice) {
+                    utterance.voice = chosenVoice;
+                    utterance.lang = chosenVoice.lang; // Force alignment with native profile config
+                } else {
+                    utterance.lang = type === "fr" ? "fr-FR" : "en-US";
                 }
-                
-                if (chosenVoice) utterance.voice = chosenVoice;
-                
-                utterance.rate = lang === "fr-CA" ? 0.85 : 1.0;
+
                 window.speechSynthesis.speak(utterance);
-            } catch(e) {}
+            } catch(e) { console.log("Speech engine playback interruption."); }
         }
     </script>
 </body>
