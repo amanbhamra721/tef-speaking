@@ -69,7 +69,7 @@
                     { "speaker": "Vous", "text": "Je suis sûre que c'est préparé dans les règles de l'art, avec des insectes provenant d'élevages contrôlés et respectueux de l'environnement. Et puis, c'est de plus en plus courant, même certains grands chefs étoilés s'y mettent ! C'est un signe que ça vaut le coup d'essayer, non ?" },
                     { "speaker": "Examinateur", "text": "Je préfère les restaurants traditionnels, je ne suis pas sûr d'être à l'aise dans ce genre d'endroit. J'ai peur que ce soit trop bizarre ou trop branché pour moi." },
                     { "speaker": "Vous", "text": "On peut toujours y aller pour boire un verre, juste pour voir l'ambiance. Ils ont sûrement une belle carte de cocktails ou de bières artisanales. Et si l'atmosphère nous plaît, on reste pour dîner. Au pire, on aura passé un bon moment à discuter autour d'un verre." },
-                    { "speaker": "Examinateur", "text": "I n'ai pas très envie de dépenser de l'argent pour manger des insectes. Je préfère mettre mon argent dans un bon steak-frites." },
+                    { "speaker": "Examinateur", "text": "Je n'ai pas très envie de dépenser de l'argent pour manger des insectes. Je préfère mettre mon argent dans un bon steak-frites." },
                     { "speaker": "Vous", "text": "On peut partager une assiette pour goûter, ça reviendra moins cher. Et puis, c'est une expérience unique, ça vaut bien un petit investissement. C'est comme aller au cinéma ou à un concert, c'est pour le plaisir de découvrir quelque chose de nouveau." },
                     { "speaker": "Examinateur", "text": "J'ai peur d'avoir des problèmes de digestion après. Mon estomac est assez sensible." },
                     { "speaker": "Vous", "text": "Les insectes sont apparemment très digestes, beaucoup plus que la viande rouge par exemple. Et puis, on n'est pas obligé d'en manger des tonnes, juste de quoi goûter et se faire une idée. Si vraiment tu as des doutes, on peut demander conseil au serveur pour choisir des plats adaptés." },
@@ -89,7 +89,7 @@
                     { "speaker": "Examinateur", "text": "C'est sympa, mais je ne suis pas sûr d'avoir le temps." },
                     { "speaker": "Vous", "text": "Ils sont flexibles sur les horaires, tu peux choisir les créneaux qui te conviennent. Et puis, ça ne te prendra pas énormément de temps chaque semaine." },
                     { "speaker": "Examinateur", "text": "Je ne connais pas assez bien la région pour être guide." },
-                    { "speaker": "Vous", "text": "Il y a une formation prévue pour les bénévoles, tu apprendras tout ce qu'il faut savoir. Et puis, c'est aussi l'occasion d'approfondir tes connaissances sur ta propre région." },
+                    { "speaker": "Vous", "text": "Il y a une formation prévue pour les bénévoles, tu apprenras tout ce qu'il faut savoir. Et puis, c'est aussi l'occasion d'approfondir tes connaissances sur ta propre région." },
                     { "speaker": "Examinateur", "text": "Je ne suis pas très à l'aise pour parler en public." },
                     { "speaker": "Vous", "text": "C'est une excellente façon de vaincre ta timidité et de gagner en confiance en toi. Et puis, tu seras là pour aider les gens, pas pour faire un one-man-show." },
                     { "speaker": "Examinateur", "text": "Je ne parle pas couramment anglais." },
@@ -214,6 +214,30 @@
             try {
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = lang;
+                
+                // --- VOICE HUNTING ALGORITHM FOR IOS ---
+                const voices = window.speechSynthesis.getVoices();
+                let chosenVoice = null;
+                
+                if (lang.startsWith("fr")) {
+                    // Hunt for high-quality iOS French female voices (Siri, Amélie, Audrey)
+                    chosenVoice = voices.find(v => v.lang.startsWith("fr") && 
+                        (v.name.includes("Siri") || v.name.includes("Enhanced") || v.name.includes("Amélie") || v.name.includes("Audrey"))
+                    );
+                } else {
+                    // Hunt for high-quality iOS English female voices (Siri, Samantha, Karen)
+                    chosenVoice = voices.find(v => v.lang.startsWith("en") && 
+                        (v.name.includes("Siri") || v.name.includes("Enhanced") || v.name.includes("Samantha") || v.name.includes("Karen"))
+                    );
+                }
+                
+                // Fallback to basic language match if premium voice isn't downloaded
+                if (!chosenVoice) {
+                    chosenVoice = voices.find(v => v.lang.startsWith(lang.substring(0,2)));
+                }
+                
+                if (chosenVoice) utterance.voice = chosenVoice;
+                
                 utterance.rate = lang === "fr-CA" ? 0.85 : 1.0;
                 window.speechSynthesis.speak(utterance);
             } catch(e) {}
